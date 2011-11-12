@@ -9,7 +9,7 @@
 class MotionSensor {
   public: 
     MotionSensor();
-    MotionSensor(byte inputPin, byte ledPin);
+    MotionSensor(int inputPin, int ledPin);
     void printPin();
     void refresh();
     void serialDebug();
@@ -17,12 +17,12 @@ class MotionSensor {
     boolean detectionStateChanged();
   
   private: 
-    byte inputPin_;              
-    boolean motionReading_;     
+    int inputPin_;              
+    boolean motionDetected_;     
     DigitalLed motionLed_;
     unsigned long lastMotionDetected_;
     boolean stateChangeSinceLastPoll_;
-    boolean motionDetected_;
+    boolean recentMotionReading_;
 };
 
 #endif

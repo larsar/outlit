@@ -2,33 +2,25 @@
 #include "MotionSensor.h"
 #include "Dimmer.h"
 #include "AmbientLightSensor.h"
-#include "LcdDisplay.h"
 #include "LightController.h"
 #include "Utils.h"
-//#include <LCD4Bit.h>
 
-#define ambientLightSensorPin 2
-#define ambientDaylightThreshold 100
+#define ambientLightSensorPin 0
+#define ambientDaylightThreshold 500
 
 
 LightController lightController;
 
 int interval = 5000;
 
-LCD4Bit lcd = LCD4Bit(2);
-
-
 void setup () {
-  AmbientLightSensor ambientAmbientLightSensor = AmbientLightSensor(ambientLightSensorPin, 50);
+    Serial.begin(9600);
+  AmbientLightSensor ambientAmbientLightSensor = AmbientLightSensor(ambientLightSensorPin, ambientDaylightThreshold);
   Dimmer outputLight = Dimmer(11);
-  MotionSensor motionSensor = MotionSensor(3, 13);
-  LcdDisplay lcdDisplay = LcdDisplay(lcd);
+  MotionSensor motionSensor = MotionSensor(2, 13);
 
-  Serial.begin(9600);
-  lcdDisplay.genericMessage("Initializing...", "");
-  delay(2000);
 
-  lightController = LightController(motionSensor, ambientAmbientLightSensor, outputLight, lcdDisplay);
+  lightController = LightController(motionSensor, ambientAmbientLightSensor, outputLight);
 
 }
 
@@ -41,7 +33,7 @@ void loop() {
 
 void serialDebug() {
   if (millis() % 1000 == 0) {
-    //Serial.println();
+    Serial.println();
     lightController.serialDebug();
   }
 }

@@ -2,6 +2,8 @@
 #include "AmbientLightSensor.h"
 
   AmbientLightSensor::AmbientLightSensor(int inputPin, int daylightThreshold) {
+    Serial.print("AMBIENT ");
+    Serial.println(inputPin);
     inputPin_ = inputPin;
     lightReading_ = 0;
     daylightThreshold_ = daylightThreshold;

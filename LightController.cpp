@@ -2,17 +2,15 @@
 #include "LightController.h"
 #include "MotionSensor.h"
 #include "AmbientLightSensor.h"
-#include "LcdDisplay.h"
 #include "Dimmer.h"
 
   LightController::LightController() {
   }
   
-  LightController::LightController(MotionSensor &motionSens, AmbientLightSensor &ambientLightSensor, Dimmer &lightOutput, LcdDisplay &lcdDisp) {
+  LightController::LightController(MotionSensor &motionSens, AmbientLightSensor &ambientLightSensor, Dimmer &lightOutput) {
     motionSensor_ = motionSens;
     ambientLightSensor_ = ambientLightSensor;
     outputLight_ = lightOutput;
-    lcdDisplay_ = lcdDisp;
     daylightSetting();
   }
   
@@ -20,7 +18,6 @@
     motionSensor_.refresh();
     ambientLightSensor_.refresh();
     outputLight_.refresh();
-    lcdDisplay_.refresh();
     
     setLightAccordingToMotionDetection();
     setLightAccordingToAmbientLight();
@@ -30,10 +27,8 @@
     if (!ambientLightSensor_.isDaylight()) {
       if (motionSensor_.motionDetected()) {
         outputLight_.increaseLight();
-        lcdDisplay_.outputHigh();
       } else {
         outputLight_.decreaseLight();
-        lcdDisplay_.outputLow();
       }
     }
   }
@@ -51,14 +46,10 @@
   
   void LightController::daylightSetting() {
     outputLight_.disable();
-    lcdDisplay_.outputOff();
-    lcdDisplay_.ambientLightDay();
   }
   
   void LightController::nightSetting() {
      outputLight_.enable();
-     lcdDisplay_.outputLow();
-     lcdDisplay_.ambientLightNight();
   }
   
   

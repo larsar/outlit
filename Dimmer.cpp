@@ -6,6 +6,7 @@
   }
 
   Dimmer::Dimmer(int outputPin) {
+    targetLightLevel_ = 0;
     outputPin_ = outputPin;
     turnOffLight();
     lastChange_ = 0;
@@ -36,13 +37,13 @@
   
   void Dimmer::serialDebug() {
     Serial.print(" Target: ");
-    Serial.print(targetLightLevel_);
+    Serial.print(targetLightLevel_, DEC);
     Serial.print(" Dimmer level: ");
-    Serial.print(lightLevel_);
+    Serial.print(lightLevel_, DEC);
     Serial.print(" Lowest level: ");
-    Serial.print(lowestLightLevel_);
+    Serial.print(lowestLightLevel_, DEC);
     Serial.print(" Highest level: ");
-    Serial.print(highestLightLevel_);
+    Serial.print(highestLightLevel_, DEC);
 
     
     Serial.print(" Enabled: ");

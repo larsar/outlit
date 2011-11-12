@@ -5,11 +5,13 @@
   MotionSensor::MotionSensor() {
   }
   
-  MotionSensor::MotionSensor(byte inputPin, byte ledPin) {
+  MotionSensor::MotionSensor(int inputPin, int ledPin) {
     inputPin_ = inputPin;
+    pinMode(inputPin_, INPUT);
     motionLed_ = DigitalLed(ledPin);
     lastMotionDetected_ = 0;
     motionDetected_ = false;
+    recentMotionReading_ = false;
   }  
   
   void MotionSensor::printPin() {
@@ -18,23 +20,27 @@
 }
   
   void MotionSensor::refresh() {
-    motionReading_ = digitalRead(inputPin_);
-    if (motionReading_ == HIGH) {
+    if (digitalRead(inputPin_) == HIGH) {
+      recentMotionReading_ = true;
       lastMotionDetected_ = millis();
       motionLed_.on();
     } else {
+      recentMotionReading_ = false;
       motionLed_.off();
     }
   }
   
   boolean MotionSensor:: detectionStateChanged() {
-    foo
-    
+
   }
 
   void MotionSensor::serialDebug() {
     Serial.print(" Motion: ");
-    Serial.print(motionReading_);
+    if (recentMotionReading_) {
+      Serial.print("Y ");
+    } else {
+      Serial.print("N ");
+    }
     Serial.print("Last motion: ");
     Serial.print(lastMotionDetected_ + MOTION_GRACE_PERIOD_MS);
     Serial.print(" ");
@@ -42,7 +48,10 @@
   }
   
   boolean MotionSensor::motionDetected() {
-    return lastMotionDetected_ + MOTION_GRACE_PERIOD_MS > millis() || motionReading_;
+    boolean changed = lastMotionDetected_ + MOTION_GRACE_PERIOD_MS > millis() || recentMotionReading_;
+
+
+    return changed;
   }
   
 
