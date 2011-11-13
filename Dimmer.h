@@ -4,7 +4,10 @@
 #include "WProgram.h"
 
 #define LIGHT_OFF 0
-#define LIGHT_ON_FULL 255
+#define LIGHT_LEVEL_LOW_DEFAULT 20
+#define LIGHT_LEVEL_HIGH_DEFAULT 255
+#define LIGHT_UP_TRANSITION_TIME_MS_DEFAULT 3000
+#define LIGHT_DOWN_TRANSITION_TIME_MS_DEFAULT 7000
 
 class Dimmer {
   public: 

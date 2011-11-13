@@ -2,13 +2,11 @@
 #include "AmbientLightSensor.h"
 
   AmbientLightSensor::AmbientLightSensor(int inputPin, int daylightThreshold) {
-    Serial.print("AMBIENT ");
-    Serial.println(inputPin);
     inputPin_ = inputPin;
     lightReading_ = 0;
     daylightThreshold_ = daylightThreshold;
     lastCandidateChange_ = 0;
-    nominationGraceTimeMs_ = 5000;
+    nominationGraceTimeMs_ = nominationGraceTimeMsDefault_;
     stateChangeSinceLastPoll_ = false;
     daylightState_ = true;
     candidateState_ = true;
@@ -28,14 +26,15 @@
   }
   
   void AmbientLightSensor::updateCandidateState() {
+    boolean daylight = isDaylightAccordingToSensor();
     if (daylightState_ == candidateState_) {
-      if (daylightState_ != daylightAccordingToSensor()) {
+      if (daylightState_ != daylight) {
         setNewCandidate();
       }
     } else {
-      if (daylightState_ == daylightAccordingToSensor()) {
+      if (daylightState_ == daylight) {
         resetCandidate();
-    } else if (candidateState_ == daylightAccordingToSensor()) {
+    } else if (candidateState_ == daylight) {
       electCandidateIfQuarantinedPeriodEnded();
     }
     }
@@ -56,10 +55,10 @@
   
   void AmbientLightSensor::setNewCandidate() {
     lastCandidateChange_ = millis();
-    candidateState_ = daylightAccordingToSensor();
+    candidateState_ = isDaylightAccordingToSensor();
   }
     
-  boolean AmbientLightSensor::daylightAccordingToSensor() {
+  boolean AmbientLightSensor::isDaylightAccordingToSensor() {
     return lightReading_ > daylightThreshold_;
   }
   

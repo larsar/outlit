@@ -5,8 +5,11 @@
 #include "LightController.h"
 #include "Utils.h"
 
-#define ambientLightSensorPin 0
-#define ambientDaylightThreshold 500
+#define ambientLightSensorAnalogInputPin 0
+#define ambientDaylightThresholdValue 300
+#define outputLightDigitalOutputPin 11
+#define motionSensorDigitalInputPin 2
+#define motionSensorLedDigitalOutputPin 13
 
 
 LightController lightController;
@@ -14,20 +17,16 @@ LightController lightController;
 int interval = 5000;
 
 void setup () {
-    Serial.begin(9600);
-  AmbientLightSensor ambientAmbientLightSensor = AmbientLightSensor(ambientLightSensorPin, ambientDaylightThreshold);
-  Dimmer outputLight = Dimmer(11);
-  MotionSensor motionSensor = MotionSensor(2, 13);
-
+  Serial.begin(9600);
+  AmbientLightSensor ambientAmbientLightSensor = AmbientLightSensor(ambientLightSensorAnalogInputPin, ambientDaylightThresholdValue);
+  Dimmer outputLight = Dimmer(outputLightDigitalOutputPin);
+  MotionSensor motionSensor = MotionSensor(motionSensorDigitalInputPin, motionSensorLedDigitalOutputPin);
 
   lightController = LightController(motionSensor, ambientAmbientLightSensor, outputLight);
-
 }
 
 void loop() {
   lightController.refresh();
-
-  //delay(1000);
   serialDebug();
 }
 
@@ -37,6 +36,7 @@ void serialDebug() {
     lightController.serialDebug();
   }
 }
+
 
 
 

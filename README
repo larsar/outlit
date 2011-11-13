@@ -1,1 +1,10 @@
-Schematics coming "soon"
+The goal of this project is to manage an outdoor lighting setup. The lights are off during daytime, and turned on after dark. When motion is detected, the lights will increase to full power, and then the intensity decrease back to "idle".
+
+Currently this is a work in progress, using a prototype based on the following:
+Arduino board
+Lightsensor on pin 0
+PIR sensor on pin 2
+3w white led on pin 11
+Standard led on pin 13 (lights when motion is detected)
+
+The basic functionality is in place. I'll add wireless control and reporting via XBee. Probably I'll add temperature sensor and probably a humidity sensor as well. 

@@ -3,6 +3,8 @@
 
 #include "WProgram.h"
 
+#define nominationGraceTimeMsDefault_  5000
+
 class AmbientLightSensor {
   public: 
     AmbientLightSensor();
@@ -21,7 +23,7 @@ class AmbientLightSensor {
     unsigned long lastCandidateChange_;
     unsigned int nominationGraceTimeMs_;
     boolean stateChangeSinceLastPoll_;
-    boolean daylightAccordingToSensor();
+    boolean isDaylightAccordingToSensor();
     void updateCandidateState();
     void electCandidateIfQuarantinedPeriodEnded();
     void resetCandidate();
