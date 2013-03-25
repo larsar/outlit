@@ -1,7 +1,8 @@
 #ifndef DigitalLed_h
 #define DigitalLed_h
 
-#include "WProgram.h"
+#include "Arduino.h"
+
 
 class DigitalLed {
   

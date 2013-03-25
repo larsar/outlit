@@ -1,7 +1,7 @@
 #ifndef Dimmer_h
 #define Dimmer_h
 
-#include "WProgram.h"
+#include "Arduino.h"
 
 #define LIGHT_OFF 0
 #define LIGHT_LEVEL_LOW_DEFAULT 20

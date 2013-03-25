@@ -1,4 +1,4 @@
-#include "WProgram.h"
+#include "Arduino.h"
 #include "MotionSensor.h"
 #include "DigitalLed.h"
 

@@ -1,7 +1,7 @@
 #ifndef AmbientLightSensor_h
 #define AmbientLightSensor_h
 
-#include "WProgram.h"
+#include "Arduino.h"
 
 #define nominationGraceTimeMsDefault_  5000
 

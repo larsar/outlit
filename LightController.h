@@ -1,7 +1,7 @@
 #ifndef LightController_h
 #define LightController_h
 
-#include "WProgram.h"
+#include "Arduino.h"
 #include "MotionSensor.h"
 #include "AmbientLightSensor.h"
 #include "Dimmer.h"

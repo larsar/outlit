@@ -1,7 +1,7 @@
 #ifndef MotionSensor_h
 #define MotionSensor_h
 
-#include "WProgram.h"
+#include "Arduino.h"
 #include "DigitalLed.h"
 
 #define MOTION_GRACE_PERIOD_MS 5000
